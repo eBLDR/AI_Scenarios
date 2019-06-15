@@ -5,11 +5,9 @@ from gui import constants, utils
 
 class Screen:
     def __init__(self, scenario_map, background_color):
-        self.scenario_map = scenario_map
+        self.map = scenario_map
 
-        self.screen_size = utils.get_pixel_coordinates_from_map_coordinates(
-            self.scenario_map.dimensions
-        )
+        self.screen_size = constants.SCREEN_SIZE
 
         self.screen_surface = pygame.display.set_mode(self.screen_size, 0, 32)
 
@@ -28,32 +26,46 @@ class Screen:
 
     def init_screen(self, background_color):
         self.screen_surface.fill(background_color)
-        self.draw_grid()
+        self.draw_separation_bar()
+        self.draw_map_grid()
 
         # Set screen background
         self.screen_surface_background = self.screen_surface.copy()
 
-    def draw_grid(self):
+    def draw_separation_bar(self):
+        separation_bar_width = 3
+        pygame.draw.rect(
+            self.screen_surface,
+            constants.COLORS['BLACK'],
+            (
+                0,
+                constants.MENU_HEIGHT - separation_bar_width,
+                self.screen_size[0],
+                separation_bar_width
+            )
+        )
+
+    def draw_map_grid(self):
         # Vertical lines
-        for x in range(self.scenario_map.dimensions[0]):
+        for x in self.map.coordinates_range['x']:
             pygame.draw.line(
                 self.screen_surface,
                 constants.COLORS['BLACK'],
                 utils.get_pixel_coordinates_from_map_coordinates((x, 0)),
                 utils.get_pixel_coordinates_from_map_coordinates(
-                    (x, self.screen_size[1])
+                    (x, self.map.dimensions[1])
                 ),
                 1
             )
 
         # Horizontal lines
-        for y in range(self.scenario_map.dimensions[1]):
+        for y in self.map.coordinates_range['y']:
             pygame.draw.line(
                 self.screen_surface,
                 constants.COLORS['BLACK'],
                 utils.get_pixel_coordinates_from_map_coordinates((0, y)),
                 utils.get_pixel_coordinates_from_map_coordinates(
-                    (self.screen_size[0], y)
+                    (self.map.dimensions[0], y)
                 ),
                 1
             )

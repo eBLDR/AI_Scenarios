@@ -5,15 +5,17 @@ import pygame
 from gui import constants, utils
 
 
-class EntitySprite(pygame.sprite.Sprite):
-    def __init__(self, entity):
+class BaseSprite(pygame.sprite.Sprite):
+    def __init__(self, entity, filename):
         super().__init__()
 
         self.entity = entity
 
         self.image_path = os.path.join(
             constants.SOURCE_PATH,
-            'wisp20x20{color}.png'.format(
+            '{filename}{size}x{size}{color}.png'.format(
+                filename=filename,
+                size=constants.PIXELS_PER_BOX,
                 color=constants.TEAM_COLOR[self.entity.team]
             )
         )

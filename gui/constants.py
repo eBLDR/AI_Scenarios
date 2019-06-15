@@ -2,6 +2,10 @@ import os
 
 SOURCE_PATH = os.path.join(os.getcwd(), 'gui', 'src')
 
+SCREEN_SIZE = (800, 800)
+
+FPS = 1
+
 MOUSE_LEFT = 1
 MOUSE_RIGHT = 3
 
@@ -21,4 +25,7 @@ TEAM_COLOR = {
     3: 'green'
 }
 
-PIXELS_PER_BOX = 20
+# Sprite images available: [20px]
+PIXELS_PER_BOX = 10
+
+MENU_HEIGHT = 100

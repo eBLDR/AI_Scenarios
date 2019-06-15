@@ -1,5 +1,4 @@
 from gui.gui import GUI
-from gui.sprites.entitysprite import EntitySprite
 from main.civilization.civilization import Civilization
 from main.map.map import Map
 
@@ -16,16 +15,16 @@ class Manager:
 
         # Civilization management
         self.civilizations = [
-            Civilization(self.map)
+            Civilization(self.map, team=1, gui=gui),
+            Civilization(self.map, team=2, gui=gui),
+            Civilization(self.map, team=3, gui=gui)
         ]
 
+        # Link sprite group references
+        if gui:
+            self.gui.set_sprite_group_references(self.civilizations)
+
     def run(self):
-        # TMP
-        self.civilizations[0].create_entity((4, 4))
-
-        wisp_sprite = EntitySprite(self.civilizations[0].entities[0])
-        self.gui.sprite_manager.add_sprite(wisp_sprite)
-
         for i in range(self.generations):
             self.update_civilizations()
 

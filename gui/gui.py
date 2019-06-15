@@ -2,21 +2,30 @@ import pygame
 
 from gui import constants
 from gui.screen.screen import Screen
-from gui.sprites.spritemanager import SpriteManager
+from gui.sprites.manager import SpriteManager
 
 
 class GUI:
-    def __init__(self, scenario_map, fps=1, background_color=constants.COLORS['WHITE']):
+    def __init__(
+            self,
+            map_,
+            background_color=constants.COLORS['WHITE']
+    ):
         pygame.init()
 
         self.source_path = constants.SOURCE_PATH
 
-        self.screen = Screen(scenario_map, background_color=background_color)
+        self.screen = Screen(map_, background_color=background_color)
 
         self.sprite_manager = SpriteManager()
 
-        self.fps = fps
+        self.fps = constants.FPS
         self.clock = pygame.time.Clock()
+
+    def set_sprite_group_references(self, civilizations):
+        self.sprite_manager.all_groups = [
+            civilization.sprites for civilization in civilizations
+        ]
 
     def update_frame(self):
         # Events
