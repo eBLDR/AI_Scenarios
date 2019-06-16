@@ -2,17 +2,18 @@ import os
 
 import pygame
 
-from gui import constants, utils
+from main import constants
+from main.gui import utils
 
 
-class BaseSprite(pygame.sprite.Sprite):
+class BaseEntitySprite(pygame.sprite.Sprite):
     def __init__(self, entity, filename):
         super().__init__()
 
         self.entity = entity
 
         self.image_path = os.path.join(
-            constants.SOURCE_PATH,
+            constants.IMG_SOURCE_PATH,
             '{filename}{size}x{size}{color}.png'.format(
                 filename=filename,
                 size=constants.PIXELS_PER_BOX,
@@ -23,9 +24,6 @@ class BaseSprite(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.image_path).convert_alpha()
 
         self.rect = self.get_rect()
-
-        # If mask collision is intended
-        self.mask = pygame.mask.from_surface(self.image)
 
     def get_rect(self):
         return self.image.get_rect(

@@ -1,6 +1,7 @@
 import pygame
 
-from gui import constants, utils
+from main import constants
+from main.gui import utils
 
 
 class Screen:
@@ -53,7 +54,7 @@ class Screen:
                 constants.COLORS['BLACK'],
                 utils.get_pixel_coordinates_from_map_coordinates((x, 0)),
                 utils.get_pixel_coordinates_from_map_coordinates(
-                    (x, self.map.dimensions[1])
+                    (x, self.map.get_height())
                 ),
                 1
             )
@@ -65,7 +66,7 @@ class Screen:
                 constants.COLORS['BLACK'],
                 utils.get_pixel_coordinates_from_map_coordinates((0, y)),
                 utils.get_pixel_coordinates_from_map_coordinates(
-                    (self.map.dimensions[0], y)
+                    (self.map.get_width(), y)
                 ),
                 1
             )

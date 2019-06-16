@@ -1,0 +1,33 @@
+{
+  "generations": 100,
+  "map": {
+    "size": {
+      "width": 30,
+      "height": 30
+    },
+    "sources": [
+      {
+        "type": "energy",
+        "amount": 100,
+        "x": 24,
+        "y": 24
+      }
+    ],
+    "obstacles": [
+    ]
+  },
+  "civilizations": [
+    {
+      "team": 1,
+      "origin": [
+        {
+          "x": 1,
+          "y": 5
+        }
+      ],
+      "resources": {
+        "energy": 50
+      }
+    }
+  ]
+}

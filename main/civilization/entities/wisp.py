@@ -1,6 +1,6 @@
 import random
 
-from main.civilization.baseentity import BaseEntity
+from main.civilization.entities.base import BaseEntity
 from main.map import utils
 
 

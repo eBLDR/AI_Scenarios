@@ -1,15 +1,17 @@
 import random
 
-from main.civilization.wisp import Wisp
-from main.civilization.origin import Origin
+from main.civilization.entities.wisp import Wisp
+from main.civilization.entities.origin import Origin
+from main.resources.resources import Resources
 
 
 class Civilization:
-    def __init__(self, map_, team, gui=True):
+    def __init__(self, map_, config, gui=True):
+        # Attributes
         self.map = map_
-        self.team = team
-
+        self.team = None
         self.origin = None
+        self.resources = Resources()
         self.wisps = []
 
         # GUI
@@ -19,29 +21,35 @@ class Civilization:
         else:
             self.sprites = None
 
-        self.init_civilization()
+        # Load from config
+        self.load_civilization(config)
 
-    def init_civilization(self):
-        origin_coordinates = (
-            random.randint(1, self.map.dimensions[0]),
-            random.randint(1, self.map.dimensions[1])
-        )
+    def load_civilization(self, config):
+        # Team
+        self.team = config['team']
 
-        origin = Origin(
-            self.team,
-            self.map.get_spot(origin_coordinates)
-        )
+        # Origin
+        for origin in config['origin']:
+            self.create_origin(
+                self.map.get_spot(
+                    (origin['x'],
+                     origin['y'])
+                )
+            )
+
+        # Resources
+        self.resources.energy = config['resources'].get('energy', 0)
+
+    def create_origin(self, spot):
+        origin = Origin(self.team, spot)
 
         if self.sprites is not None:
-            from gui.sprites.origin import OriginSprite
+            from main.gui.sprites.entities.origin import OriginSprite
             self.sprites.add(
                 OriginSprite(origin)
             )
 
         self.origin = origin
-
-    def get_wisps(self):
-        return self.wisps
 
     def create_wisp(self):
         wisp = Wisp(
@@ -50,12 +58,15 @@ class Civilization:
         )
 
         if self.sprites is not None:
-            from gui.sprites.wisp import WispSprite
+            from main.gui.sprites.entities.wisp import WispSprite
             self.sprites.add(
                 WispSprite(wisp)
             )
 
         self.wisps.append(wisp)
+
+    def get_wisps(self):
+        return self.wisps
 
     def remove_wisp(self, wisp):
         self.wisps.remove(wisp)

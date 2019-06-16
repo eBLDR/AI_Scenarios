@@ -5,8 +5,7 @@ from main.manager import Manager
 
 if __name__ == '__main__':
     # Set up
-    map_size = 30
-    generations = 150
+    scenario_name = 'scenario_1'
 
-    manager = Manager(map_size, generations)
+    manager = Manager(scenario_name=scenario_name)
     manager.run()

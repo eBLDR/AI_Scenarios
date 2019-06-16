@@ -1,28 +1,48 @@
-from gui.gui import GUI
 from main.civilization.civilization import Civilization
+from main.gui.gui import GUI
 from main.map.map import Map
+from main.scenarios.manager import ScenarioManager
 
 
 class Manager:
-    def __init__(self, map_size, generations, gui=True):
-        self.generations = generations
+    def __init__(self, scenario_name, gui=True):
+        self.generations = None
+        self.map = None
+        self.civilizations = []
+        self.gui = None
 
-        # Map management
-        self.map = Map(map_size, map_size)
+        if gui:
+            import pygame
+            pygame.init()
 
-        # GUI management
+        # Load scenario
+        self.load_scenario(scenario_name, gui)
+
+    def load_scenario(self, scenario_name, gui):
+        scenario_manager = ScenarioManager(scenario_name)
+
+        self.generations = scenario_manager.get_generations()
+
+        # Map initialization
+        self.map = Map(scenario_manager.get_map_config())
+
+        # GUI initialization
         self.gui = GUI(self.map) if gui else None
 
-        # Civilization management
-        self.civilizations = [
-            Civilization(self.map, team=1, gui=gui),
-            Civilization(self.map, team=2, gui=gui),
-            Civilization(self.map, team=3, gui=gui)
-        ]
+        # Map construction
+        self.map.build_map()
+
+        # Civilization initialization
+        for civilization_config in scenario_manager.get_civilizations_config():
+            self.civilizations.append(
+                Civilization(self.map, civilization_config, gui=gui)
+            )
 
         # Link sprite group references
         if gui:
-            self.gui.set_sprite_group_references(self.civilizations)
+            self.gui.set_sprite_group_references(
+                self.map.sprites, self.civilizations
+            )
 
     def run(self):
         for i in range(self.generations):

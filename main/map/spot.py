@@ -3,14 +3,14 @@ class Spot:
         self.coordinates = coordinates
         self.presences = []
 
+    def add_presence(self, entity):
+        self.presences.append(entity)
+
     def has_presences(self):
         return bool(self.presences)
 
     def get_presences(self):
         return self.presences
-
-    def add_presence(self, entity):
-        self.presences.append(entity)
 
     def remove_presence(self, entity):
         self.presences.remove(entity)

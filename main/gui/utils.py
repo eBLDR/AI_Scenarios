@@ -1,4 +1,4 @@
-from gui import constants
+from main import constants
 
 
 def get_pixel_coordinates_from_map_coordinates(map_coordinates, center=False):

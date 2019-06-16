@@ -1,10 +1,13 @@
 import os
 
-SOURCE_PATH = os.path.join(os.getcwd(), 'gui', 'src')
+# ENVIRONMENT
+BASE_DIR = os.path.join(os.getcwd(), 'main')
+SCENARIO_CONFIG_PATH = os.path.join(BASE_DIR, 'scenarios', 'config')
 
+# GUI
+IMG_SOURCE_PATH = os.path.join(BASE_DIR, 'gui', 'src')
 SCREEN_SIZE = (800, 800)
-
-FPS = 1
+FPS = 3
 
 MOUSE_LEFT = 1
 MOUSE_RIGHT = 3
@@ -25,7 +28,7 @@ TEAM_COLOR = {
     3: 'green'
 }
 
-# Sprite images available: [20px]
-PIXELS_PER_BOX = 10
+# Sprite images available: [10px, 20px]
+PIXELS_PER_BOX = 20
 
 MENU_HEIGHT = 100
