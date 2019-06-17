@@ -1,4 +1,4 @@
-from main.map.spot import Spot
+from main.map.spots.spot import Spot
 from main.resources.resources import Resources
 
 

@@ -12,8 +12,6 @@ class Screen:
 
         self.screen_surface = pygame.display.set_mode(self.screen_size, 0, 32)
 
-        pygame.display.set_caption('AI Scenarios')
-
         # icon = pygame.image.load(os.path.join(
         #     constants.SOURCE_PATH,
         #     'wisp20x20red.png')
@@ -70,3 +68,6 @@ class Screen:
                 ),
                 1
             )
+
+    def render_text(self, text, position):
+        self.screen_surface.blit(text, position)

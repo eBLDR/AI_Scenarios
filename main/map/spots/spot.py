@@ -1,6 +1,9 @@
-class Spot:
+from main.map.spots.base import Base
+
+
+class Spot(Base):
     def __init__(self, coordinates):
-        self.coordinates = coordinates
+        super().__init__(coordinates, walkable=True)
         self.presences = []
 
     def add_presence(self, entity):

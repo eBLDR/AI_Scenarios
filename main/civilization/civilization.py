@@ -1,7 +1,8 @@
 import random
 
-from main.civilization.entities.wisp import Wisp
+from main import constants
 from main.civilization.entities.origin import Origin
+from main.civilization.entities.wisp import Wisp
 from main.resources.resources import Resources
 
 
@@ -23,6 +24,13 @@ class Civilization:
 
         # Load from config
         self.load_civilization(config)
+
+    def __str__(self):
+        return 'Team: {team} - {color}\n' \
+               'Energy: {energy}'.format(team=self.team,
+                                         color=constants.TEAM_COLOR[self.team],
+                                         energy=self.resources.energy
+                                         )
 
     def load_civilization(self, config):
         # Team
@@ -73,7 +81,7 @@ class Civilization:
 
     def update_civilization(self):
         # Generate wisp
-        if random.random() > 0.2:
+        if random.random() > 0.9:
             self.create_wisp()
 
         # Move wisps

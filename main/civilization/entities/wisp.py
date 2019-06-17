@@ -26,7 +26,7 @@ class Wisp(BaseEntity):
                     random.choice(list(utils.DIRECTIONS.values()))
                 )
 
-                if map_.has_coordinates(new_coordinates):
+                if map_.has_coordinates(new_coordinates) and map_.is_walkable(new_coordinates):
                     break
 
         new_spot = map_.get_spot(new_coordinates)

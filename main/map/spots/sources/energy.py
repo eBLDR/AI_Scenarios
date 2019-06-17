@@ -1,4 +1,4 @@
-from main.map.sources.base import BaseSource
+from main.map.spots.sources.base import BaseSource
 
 
 class EnergySource(BaseSource):
